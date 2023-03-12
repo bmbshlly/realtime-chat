@@ -10,7 +10,7 @@
     "lint": "standard --fix"
   },
   "dependencies": {
-    "fastify": "^4.14.1"
+    "fastify-cli": "^5.7.1"
   },
   "devDependencies": {
     "standard": "^17.0.0"
