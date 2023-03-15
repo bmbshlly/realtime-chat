@@ -84,7 +84,7 @@ server.post('/message', async function (req, reply) {
   }
 });
 
-server.listen({ port: process.env.port }, err => {
+server.listen({ port: process.env.PORT }, err => {
   if (err) {
     // server.log.error(err);
     process.exit(1);
