@@ -1,7 +1,14 @@
 import { db } from '../../utils/index.js';
 
 const send = async ({ senderUserId, chatId, text }) => {
-  const { chat, ...messageResponse } = await db.message.create({
+  const checkChatPermission = db.chat.findFirstOrThrow({
+    where: {
+      chatId,
+      members: { hasEvery: [senderUserId] }
+    }
+  });
+
+  const createMessage = db.message.create({
     data: {
       senderUserId,
       chatId,
@@ -9,6 +16,13 @@ const send = async ({ senderUserId, chatId, text }) => {
     },
     include: { chat: true }
   });
+
+  const [, { chat, ...messageResponse }
+  ] = await db.$transaction([
+    checkChatPermission,
+    createMessage
+  ]);
+
   return {
     chat,
     messageResponse
