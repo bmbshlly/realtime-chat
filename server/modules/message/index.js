@@ -1,7 +1,14 @@
 import { db } from '../../utils/index.js';
 
 const send = async ({ senderUserId, chatId, text }) => {
-  const { chat, ...messageResponse } = await db.message.create({ data: { senderUserId, chatId, text }, include: { chat: true } });
+  const { chat, ...messageResponse } = await db.message.create({
+    data: {
+      senderUserId,
+      chatId,
+      text
+    },
+    include: { chat: true }
+  });
   return {
     chat,
     messageResponse
