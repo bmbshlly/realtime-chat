@@ -20,13 +20,13 @@ model chat {
 }
 
 model message {
-  messageId String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  chatId    String   @db.Uuid
-  senderId  String   @db.Uuid
-  text      String
-  createAt  DateTime @default(now()) @db.Timestamptz(6)
-  chat      chat     @relation(fields: [chatId], references: [chatId])
-  member    user     @relation(fields: [senderId], references: [userId])
+  messageId    String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  chatId       String   @db.Uuid
+  senderUserId String   @db.Uuid
+  text         String
+  createdAt    DateTime @default(now()) @db.Timestamptz(6)
+  chat         chat     @relation(fields: [chatId], references: [chatId])
+  member       user     @relation(fields: [senderUserId], references: [userId])
 
-  @@index([createAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
 }

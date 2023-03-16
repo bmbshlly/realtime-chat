@@ -15,7 +15,7 @@ const verify = (token) => {
   try {
     return jwt.verify(token, jwtSecret);
   } catch (e) {
-    return false;
+    return new Error(e.message);
   }
 };
 
